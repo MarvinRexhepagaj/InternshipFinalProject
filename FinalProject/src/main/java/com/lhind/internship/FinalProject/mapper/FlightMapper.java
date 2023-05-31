@@ -5,6 +5,9 @@ import com.lhind.internship.FinalProject.model.dto.FlightDto;
 import com.lhind.internship.FinalProject.model.entity.Flight;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class FlightMapper extends AbstractMapper<Flight, FlightDto> {
 
@@ -58,5 +61,11 @@ public class FlightMapper extends AbstractMapper<Flight, FlightDto> {
         flightDto.setPrice(entity.getPrice());
 
         return flightDto;
+    }
+
+    public List<FlightDto> toDtoList(List<Flight> entities) {
+        return entities.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 }

@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -24,7 +27,7 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private AirlineCode airlineCode;
 
-    @Column(name = "flight_number", nullable = false, unique = true)
+    @Column(name = "flight_number", nullable = false)
     private String flightNumber;
 
     @Column(name = "origin", nullable = false)
@@ -33,13 +36,11 @@ public class Flight {
     @Column(name = "destination", nullable = false)
     private String destination;
 
-    @Column(name = "flight_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date flightDate;
+    @Column(name = "flight_date", nullable = false, columnDefinition = "DATE")
+    private LocalDate flightDate;
 
-    @Column(name = "departure_time", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date departureTime;
+    @Column(name = "departure_time", nullable = false, columnDefinition = "TIME")
+    private LocalTime departureTime;
 
     @Column(name = "aircraft_type")
     private String aircraftType;

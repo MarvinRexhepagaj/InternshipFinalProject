@@ -6,6 +6,8 @@ import com.lhind.internship.FinalProject.model.entity.CancellationRequest;
 import com.lhind.internship.FinalProject.model.entity.User;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -24,7 +26,7 @@ public class BookingMapper extends AbstractMapper<Booking, BookingDto> {
         booking.setFlightBookings(dto.getFlightBookings().stream()
                 .map(fbDto -> new FlightBookingMapper().toEntity(fbDto))
                 .collect(Collectors.toList()));
-        booking.setCancellationRequest(dto.getCancellationRequest());
+
         return booking;
     }
 
@@ -43,5 +45,15 @@ public class BookingMapper extends AbstractMapper<Booking, BookingDto> {
                 .collect(Collectors.toList()));
         return bookingDto;
     }
+
+    public List<BookingDto> toDtoList(List<Booking> entities) {
+        if (entities == null) {
+            return Collections.emptyList();
+        }
+        return entities.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
 }
 

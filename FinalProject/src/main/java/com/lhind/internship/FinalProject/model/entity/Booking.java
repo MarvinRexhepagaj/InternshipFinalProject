@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -30,7 +32,7 @@ public class Booking {
 
     @Column(name = "booking_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date bookingDate;
+    private LocalDateTime bookingDate;
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private CancellationRequest cancellationRequest;
 
