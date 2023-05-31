@@ -20,10 +20,12 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 public class SecurityConfiguration {
     private static final String[] AUTH_WHITELIST = {
             "/authenticate",
+            "/register",
             "/swagger-ui/**",
             "/swagger-resources/**",
             "/api-docs/**",
             "/webjars/**"
+
     };
     private final TokenFilter tokenFilter;
 

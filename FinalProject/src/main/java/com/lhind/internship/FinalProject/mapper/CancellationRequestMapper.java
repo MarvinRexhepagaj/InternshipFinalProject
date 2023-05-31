@@ -1,8 +1,8 @@
 package com.lhind.internship.FinalProject.mapper;
 
 import com.lhind.internship.FinalProject.model.dto.CancellationRequestDto;
-import com.lhind.internship.FinalProject.model.entity.Booking;
 import com.lhind.internship.FinalProject.model.entity.CancellationRequest;
+import com.lhind.internship.FinalProject.model.entity.FlightBooking;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,7 +16,13 @@ public class CancellationRequestMapper extends AbstractMapper<CancellationReques
 
         CancellationRequest cancellationRequest = new CancellationRequest();
         cancellationRequest.setId(dto.getId());
-        cancellationRequest.setBooking(new Booking(dto.getBookingId()));
+
+        if (dto.getFlightBookingId() != null) {
+            FlightBooking flightBooking = new FlightBooking();
+            flightBooking.setId(dto.getFlightBookingId());
+            cancellationRequest.setFlightBooking(flightBooking);
+        }
+
         cancellationRequest.setStatus(dto.getStatus());
         cancellationRequest.setRequestDate(dto.getRequestDate());
         cancellationRequest.setReason(dto.getReason());
@@ -33,7 +39,11 @@ public class CancellationRequestMapper extends AbstractMapper<CancellationReques
 
         CancellationRequestDto cancellationRequestDto = new CancellationRequestDto();
         cancellationRequestDto.setId(entity.getId());
-        cancellationRequestDto.setBookingId(entity.getBooking().getId());
+
+        if (entity.getFlightBooking() != null) {
+            cancellationRequestDto.setFlightBookingId(entity.getFlightBooking().getId());
+        }
+
         cancellationRequestDto.setStatus(entity.getStatus());
         cancellationRequestDto.setRequestDate(entity.getRequestDate());
         cancellationRequestDto.setReason(entity.getReason());

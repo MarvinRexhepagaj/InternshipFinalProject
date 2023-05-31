@@ -15,7 +15,7 @@ import java.util.Date;
 public class CancellationRequestDto {
     private Long id;
     @NotNull(message = "Booking ID cannot be null")
-    private Long bookingId;
+    private Long flightBookingId;
 
     private RequestStatus status;
 

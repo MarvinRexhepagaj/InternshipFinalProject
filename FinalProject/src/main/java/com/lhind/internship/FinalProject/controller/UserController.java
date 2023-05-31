@@ -4,6 +4,7 @@ package com.lhind.internship.FinalProject.controller;
 
 import com.lhind.internship.FinalProject.exception.CustomException;
 import com.lhind.internship.FinalProject.model.dto.FlightDto;
+import com.lhind.internship.FinalProject.model.dto.PasswordDto;
 import com.lhind.internship.FinalProject.model.dto.UserDto;
 import com.lhind.internship.FinalProject.service.FlightBookingService;
 import com.lhind.internship.FinalProject.service.FlightService;
@@ -66,20 +67,20 @@ public class UserController {
     }
     @PreAuthorize(value = "hasAnyRole('ADMIN')")
     @PostMapping("/create")
-    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto)  {
-        UserDto createdUser = userService.createUser(userDto);
+    public ResponseEntity<PasswordDto> createUser(@RequestBody @Valid PasswordDto userDto)  {
+        PasswordDto createdUser = userService.createUser(userDto);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable  Long id, @RequestBody @Valid UserDto userDto)  {
-        UserDto updatedUser = userService.updateUser(id, userDto);
+    public ResponseEntity<PasswordDto> updateUser(@PathVariable  Long id, @RequestBody @Valid PasswordDto userDto)  {
+        PasswordDto updatedUser = userService.updateUser(id, userDto);
         return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id)  {
-        userService.deleteUser(id);
+        userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
     }
 

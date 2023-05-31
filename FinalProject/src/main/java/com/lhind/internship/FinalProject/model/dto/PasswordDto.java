@@ -18,7 +18,7 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 @Validated
-public class UserDto {
+public class PasswordDto {
     private Long id;
 
     @NotBlank(message = "First name cannot be blank")
@@ -41,7 +41,7 @@ public class UserDto {
 
     @NotBlank(message = "Password cannot be blank")
 
-
+    private String password;
 
     private UserRole role;
 }

@@ -1,13 +1,16 @@
 package com.lhind.internship.FinalProject.service;
 
 import com.lhind.internship.FinalProject.exception.CustomException;
+import com.lhind.internship.FinalProject.model.dto.PasswordDto;
 import com.lhind.internship.FinalProject.model.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserDto createUser(UserDto userDto) ;
+
+
+    PasswordDto createUser(PasswordDto userDto);
 
     List<UserDto> getAllUsers() ;
 
@@ -18,9 +21,16 @@ public interface UserService {
 
     List<UserDto> getUsersByFlightId(Long flightId);
 
-    UserDto updateUser(Long id, UserDto userDto) ;
-
-    void deleteUser(Long id) ;
 
 
+
+
+
+
+
+    PasswordDto updateUser(Long id, PasswordDto userDto);
+
+    void deleteUserById(Long id);
+
+    void registerUser(PasswordDto userDto);
 }

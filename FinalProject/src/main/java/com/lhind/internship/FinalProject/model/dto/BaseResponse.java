@@ -5,14 +5,14 @@ import java.util.Map;
 
 public class BaseResponse {
 
-    private List<String> messages;
+    private String message;
 
 
-    public List<String> getMessages() {
-        return messages;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessages(List<String> messages) {
-        this.messages = messages;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

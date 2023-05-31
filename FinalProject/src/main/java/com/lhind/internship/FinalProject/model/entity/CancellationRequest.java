@@ -20,8 +20,8 @@ public class CancellationRequest {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "booking_id", nullable = false)
-    private Booking booking;
+    @JoinColumn(name = "flight_booking_id", nullable = false)
+    private FlightBooking flightBooking;
 
     @Column(name = "request_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

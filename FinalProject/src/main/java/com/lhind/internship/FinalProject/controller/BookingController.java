@@ -2,17 +2,23 @@ package com.lhind.internship.FinalProject.controller;
 
 import com.lhind.internship.FinalProject.exception.CustomException;
 import com.lhind.internship.FinalProject.mapper.BookingMapper;
+import com.lhind.internship.FinalProject.mapper.FlightBookingMapper;
 import com.lhind.internship.FinalProject.model.dto.BookingDto;
+import com.lhind.internship.FinalProject.model.dto.FlightBookingDto;
+import com.lhind.internship.FinalProject.model.dto.UserDto;
+import com.lhind.internship.FinalProject.model.entity.Booking;
+import com.lhind.internship.FinalProject.model.entity.FlightBooking;
+import com.lhind.internship.FinalProject.model.enums.BookingStatus;
 import com.lhind.internship.FinalProject.service.BookingService;
 import com.lhind.internship.FinalProject.service.UserService;
-import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -25,22 +31,17 @@ public class BookingController {
 
     private final BookingMapper bookingMapper;
 
-    public BookingController(UserService userService, BookingService bookingService, BookingMapper bookingMapper) {
+    private final FlightBookingMapper flightBookingMapper;
+
+
+    public BookingController(UserService userService, BookingService bookingService, BookingMapper bookingMapper, FlightBookingMapper flightBookingMapper) {
         this.userService = userService;
         this.bookingService = bookingService;
         this.bookingMapper = bookingMapper;
+        this.flightBookingMapper = flightBookingMapper;
     }
 
-  /*  @PostMapping("user/{userId}")
-    public ResponseEntity<BookingDto> createBooking(@PathVariable Long userId, @RequestBody @Valid BookingDto bookingDto) throws UserNotFoundException {
-        BookingDto createdBookingDto = bookingService.createBooking(userId, bookingDto);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(createdBookingDto.getId())
-                .toUri();
-        return ResponseEntity.created(location).body(createdBookingDto);
 
-    }*/
     @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<BookingDto>> getBookingsByUserId(@PathVariable Long userId)throws CustomException {
@@ -58,5 +59,10 @@ public class BookingController {
         List<BookingDto> bookings = bookingService.getBookingsForAuthenticatedTraveler(userEmail, page, pageSize);
         return ResponseEntity.ok(bookings);
     }
-
+    @PreAuthorize(value = "hasAnyRole('TRAVELLER')")
+    @PostMapping
+    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto) {
+        BookingDto createdBooking = bookingService.createBooking(bookingDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdBooking);
+    }
 }

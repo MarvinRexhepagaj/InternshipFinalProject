@@ -33,8 +33,6 @@ public class Booking {
     @Column(name = "booking_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime bookingDate;
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
-    private CancellationRequest cancellationRequest;
 
     public Booking(Long id) {
         this.id = id;

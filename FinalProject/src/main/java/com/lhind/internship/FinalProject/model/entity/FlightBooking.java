@@ -41,5 +41,8 @@ public class FlightBooking {
     @Column(name = "decline_reason")
     private String declineReason;
 
+    @OneToOne(mappedBy = "flightBooking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private CancellationRequest cancellationRequest;
+
 
 }

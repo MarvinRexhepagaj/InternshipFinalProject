@@ -30,7 +30,7 @@ public class BookingDto {
     private List<FlightBookingDto> flightBookings = new ArrayList<>();
 
 
-    private CancellationRequestDto cancellationRequest;
+
 
 
 }

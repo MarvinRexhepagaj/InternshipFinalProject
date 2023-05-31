@@ -6,6 +6,10 @@ import com.lhind.internship.FinalProject.model.entity.Flight;
 import com.lhind.internship.FinalProject.model.entity.FlightBooking;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class FlightBookingMapper extends AbstractMapper<FlightBooking, FlightBookingDto> {
 
@@ -45,5 +49,15 @@ public class FlightBookingMapper extends AbstractMapper<FlightBooking, FlightBoo
 
 
         return flightBookingDto;
+    }
+
+    public List<FlightBooking> toEntityList(List<FlightBookingDto> dtos) {
+        if (dtos == null) {
+            return Collections.emptyList();
+        }
+
+        return dtos.stream()
+                .map(this::toEntity)
+                .collect(Collectors.toList());
     }
 }

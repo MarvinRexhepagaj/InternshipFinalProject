@@ -11,11 +11,12 @@ import com.lhind.internship.FinalProject.repository.BookingRepository;
 import com.lhind.internship.FinalProject.repository.FlightBookingRepository;
 import com.lhind.internship.FinalProject.repository.FlightRepository;
 import com.lhind.internship.FinalProject.service.FlightService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 public class FlightServiceImpl implements FlightService {
     private final FlightRepository flightRepository;
@@ -43,9 +44,17 @@ public class FlightServiceImpl implements FlightService {
         }
     }
     @Override
-    public FlightDto getFlightById(Long id)  {
+    public FlightDto getFlightById(Long id) {
+        log.info("Getting flight by ID: {}", id);
+
         Flight flight = flightRepository.findById(id)
-                .orElseThrow(() -> new CustomException("Flight not found with id: " + id));
+                .orElseThrow(() -> {
+                    log.error("Flight not found with ID: {}", id);
+                    return new CustomException("Flight not found with ID: " + id);
+                });
+
+        log.info("Retrieved flight with ID: {}", id);
+
         return flightMapper.toDto(flight);
     }
 
@@ -94,7 +103,12 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<FlightDto> getFlightsByBookingIdAndEmail(Long bookingId, String email) {
+        log.info("Getting flights by booking ID: {} and email: {}", bookingId, email);
+
         List<Flight> flights = flightRepository.findByBookingIdAndEmail(bookingId, email);
+
+        log.info("Retrieved {} flights for booking ID: {} and email: {}", flights.size(), bookingId, email);
+
         return flightMapper.toDtoList(flights);
     }
 }

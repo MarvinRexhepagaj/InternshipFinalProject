@@ -1,5 +1,6 @@
 package com.lhind.internship.FinalProject.mapper;
 
+import com.lhind.internship.FinalProject.model.dto.PasswordDto;
 import com.lhind.internship.FinalProject.model.dto.UserDto;
 import com.lhind.internship.FinalProject.model.entity.User;
 import org.springframework.stereotype.Component;
@@ -7,12 +8,10 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Component
-public class UserMapper extends AbstractMapper<User, UserDto> {
-
+public class UserDataMapper extends AbstractMapper<User, PasswordDto> {
     @Override
-    public User toEntity(UserDto dto) {
+    public User toEntity(PasswordDto dto) {
         if (dto == null) {
             return null;
         }
@@ -25,19 +24,19 @@ public class UserMapper extends AbstractMapper<User, UserDto> {
         user.setEmail(dto.getEmail());
         user.setPhoneNumber(dto.getPhoneNumber());
         user.setAddress(dto.getAddress());
-
+        user.setPassword(dto.getPassword());
         user.setRole(dto.getRole());
 
         return user;
     }
 
     @Override
-    public UserDto toDto(User entity) {
+    public PasswordDto toDto(User entity) {
         if (entity == null) {
             return null;
         }
 
-        UserDto userDto = new UserDto();
+        PasswordDto userDto = new PasswordDto();
         userDto.setId(entity.getId());
         userDto.setFirstName(entity.getFirstName());
         userDto.setMiddleName(entity.getMiddleName());
@@ -45,12 +44,12 @@ public class UserMapper extends AbstractMapper<User, UserDto> {
         userDto.setEmail(entity.getEmail());
         userDto.setPhoneNumber(entity.getPhoneNumber());
         userDto.setAddress(entity.getAddress());
-
+        userDto.setPassword(entity.getPassword());
         userDto.setRole(entity.getRole());
 
         return userDto;
     }
-    public List<UserDto> toDtoList(List<User> entities) {
+    public List<PasswordDto> toDtoList(List<User> entities) {
         if (entities == null) {
             return Collections.emptyList();
         }
